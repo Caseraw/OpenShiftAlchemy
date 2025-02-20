@@ -1,0 +1,23 @@
+{
+    "name": "Alpine Dev Container",
+    "build": {
+        "dockerfile": "Containerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    },
+	"runArgs": [
+		"--userns=keep-id",
+		"--security-opt=label=disable"
+	],
+	"containerUser": "vscode",
+	"updateRemoteUserUID": true,
+	"containerEnv": {
+		"HOME": "/home/vscode"
+	},
+    "remoteUser": "vscode"
+}
