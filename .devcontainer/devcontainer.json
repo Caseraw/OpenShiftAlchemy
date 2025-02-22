@@ -1,7 +1,9 @@
 {
-    "name": "Alpine Dev Container",
+    "name": "Fedora Dev Container",
     "build": {
-        "dockerfile": "Containerfile"
+        "dockerfile": "Containerfile",
+        "args": {
+            "PLATFORM": "linux/amd64"
     },
     "customizations": {
         "vscode": {
@@ -12,12 +14,16 @@
     },
 	"runArgs": [
 		"--userns=keep-id",
-		"--security-opt=label=disable"
+		"--security-opt=label=disable",
+        "--user", "vscode"
 	],
 	"containerUser": "vscode",
 	"updateRemoteUserUID": true,
 	"containerEnv": {
 		"HOME": "/home/vscode"
+	},
+	"remoteEnv": {
+		"PODMAN_USERNS": "keep-id"
 	},
     "remoteUser": "vscode"
 }

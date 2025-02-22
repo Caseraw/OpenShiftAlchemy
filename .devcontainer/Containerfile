@@ -1,24 +1,32 @@
 # Use the latest Fedora image
-FROM fedora:latest
+ARG PLATFORM
+FROM --platform=$PLATFORM fedora:latest
 
-# Install necessary packages
+# # Install necessary packages
 RUN dnf install -y \
     bash \
     bash-completion \
     curl \
     wget \
+    git \
+    tree \
+    less \
+    more \
+    tar \
+    zip \
+    unzip \
+    jq \
+    rsync \
+    which \
     vim \
     vim-enhanced \
-    jq \
     iputils \
     bind-utils \
     iproute \
     traceroute \
     procps-ng \
-    less \
     util-linux-core \
     wireshark \
-    tree \
     htop \
     net-tools \
     telnet \
@@ -35,7 +43,6 @@ RUN dnf install -y \
     nano \
     zip \
     unzip \
-    rsync \
     nc \
     python3 \
     python3-pip \
@@ -47,40 +54,40 @@ RUN dnf install -y \
     ansible \
     skopeo \
     buildah \
-    podman \
-    git && \
+    podman && \
     dnf clean all
 
 # Download/Install OpenShift and Kubernetes Client binaries
 RUN wget -q -O oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz && \
     tar -xzf oc.tar.gz && \
-    install -m 755 oc /usr/local/bin/oc && \
+    install -m 755 oc /usr/local/bin/oc  && \
     install -m 755 kubectl /usr/local/bin/kubectl && \
     oc completion bash > /etc/bash_completion.d/oc && \
     kubectl completion bash > /etc/bash_completion.d/kubectl && \
     rm -rf oc.tar.gz oc kubectl README.md
 
 # Download/Install Kustomize Client binary
-RUN wget -q -O kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.5.0/kustomize_v5.5.0_linux_amd64.tar.gz && \
+RUN wget -q -O kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.6.0/kustomize_v5.6.0_linux_amd64.tar.gz && \
     tar -xzf kustomize.tar.gz && \
     install -m 755 kustomize /usr/local/bin/kustomize && \
     kustomize completion bash > /etc/bash_completion.d/kustomize && \
     rm -rf kustomize.tar.gz kustomize
 
 # Download/Install Helm Client binary
-RUN wget -q -O helm.tar.gz https://get.helm.sh/helm-v3.16.4-linux-amd64.tar.gz && \
+RUN wget -q -O helm.tar.gz https://get.helm.sh/helm-v3.17.1-linux-amd64.tar.gz && \
     tar -xzf helm.tar.gz && \
     install -m 755 linux-amd64/helm /usr/local/bin/helm && \
     helm completion bash > /etc/bash_completion.d/helm && \
     rm -rf helm.tar.gz linux-amd64
 
 # Install Tekton CLI RPM directly from URL
-RUN dnf install -y https://github.com/tektoncd/cli/releases/download/v0.39.0/tektoncd-cli-0.39.0_Linux-64bit.rpm && \
+RUN dnf install -y https://github.com/tektoncd/cli/releases/download/v0.39.1/tektoncd-cli-0.39.1_Linux-64bit.rpm && \
     dnf clean all && \
     tkn completion bash > /etc/bash_completion.d/tkn
 
 # Create a non-root user to use the dev container
-RUN useradd -m vscode
+RUN useradd -m -s /bin/bash vscode &&\
+    echo 'export PS1="[\u@\h \W]\$ "' >> /home/vscode/.bashrc
 USER vscode
 
 # Set the working directory to the workspace folder within the vscode home directory

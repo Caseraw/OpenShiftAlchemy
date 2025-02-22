@@ -1,1 +1,23 @@
 # Gitignore file
+
+# Ignore everything inside WIP (Work In Progress)
+WIP/*
+
+# Ignore everything inside pull-secret with some exceptions
+assets-byo/pull-secret/*
+!assets-byo/pull-secret/README.md
+!assets-byo/pull-secret/setup-pull-secret.sh
+
+# Ignore everything inside ssh-keys with some exceptions
+assets-byo/ssh-keys/*
+!assets-byo/ssh-keys/README.md
+!assets-byo/ssh-keys/generate-ssh-keypair.sh
+
+# Ignore everything inside certs with some exceptions
+assets-byo/certs/*
+!assets-byo/certs/README.md
+
+# Ignore everything inside aws-creds with some exceptions
+assets-byo/aws-creds/*
+!assets-byo/aws-creds/README.md
+!assets-byo/aws-creds/setup-aws-creds.sh
