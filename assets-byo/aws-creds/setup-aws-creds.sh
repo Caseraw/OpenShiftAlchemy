@@ -8,6 +8,7 @@ BASEDOMAIN_ENV="$SCRIPT_DIR/basedomain.env"
 ACCESSKEYID_ENV="$SCRIPT_DIR/accesskeyid.env"
 SECRETACCESSKEY_ENV="$SCRIPT_DIR/secretaccesskey.env"
 BUNDLE_ENV="$SCRIPT_DIR/bundle.env"
+AWS_CLI_ENV="$SCRIPT_DIR/aws-cli.env"
 
 # Load additional functions
 source "$SCRIPT_DIR/../../automation/shell/lib/show_msg.sh"
@@ -36,7 +37,9 @@ confirm_overwrite() {
 read -p "Enter AWS Access Key ID: " AWS_ACCESS_KEY_ID
 read -s -p "Enter AWS Secret Access Key: " AWS_SECRET_ACCESS_KEY
 echo
-read -p "Enter Base Domain: " BASE_DOMAIN
+read -p "Enter AWS Region: " AWS_REGION
+read -p "Enter OCP cluster base domain: " BASE_DOMAIN
+read -p "Enter OCP cluster GUID: " GUID_DOMAIN
 
 # Handle individual secret file creation based on user input
 if confirm_overwrite "$BASEDOMAIN_ENV"; then
@@ -54,7 +57,7 @@ if confirm_overwrite "$SECRETACCESSKEY_ENV"; then
     show_msg "show-date" "INFO" "Done" "Secret access key file created/updated" "$SECRETACCESSKEY_ENV"
 fi
 
-# Handle bundle.env (Contains all values)
+# Handle bundle.env
 if confirm_overwrite "$BUNDLE_ENV"; then
     cat <<EOF > "$BUNDLE_ENV"
 baseDomain=$BASE_DOMAIN
@@ -62,4 +65,15 @@ aws_access_key_id=$AWS_ACCESS_KEY_ID
 aws_secret_access_key=$AWS_SECRET_ACCESS_KEY
 EOF
     show_msg "show-date" "INFO" "Done" "Bundle file created/updated" "$BUNDLE_ENV"
+fi
+
+# Handle aws-cli.env
+if confirm_overwrite "$AWS_CLI_ENV"; then
+    cat <<EOF > "$AWS_CLI_ENV"
+AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+AWS_DEFAULT_REGION=$AWS_REGION
+GUID_DOMAIN=$GUID_DOMAIN
+EOF
+    show_msg "show-date" "INFO" "Done" "AWS CLI file created/updated" "$AWS_CLI_ENV"
 fi

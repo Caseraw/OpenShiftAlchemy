@@ -85,9 +85,16 @@ RUN dnf install -y https://github.com/tektoncd/cli/releases/download/v0.39.1/tek
     dnf clean all && \
     tkn completion bash > /etc/bash_completion.d/tkn
 
+# Install AWS CLI from URL
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    sudo ./aws/install && \
+    rm -rf awscliv2.zip
+
 # Create a non-root user to use the dev container
-RUN useradd -m -s /bin/bash vscode &&\
-    echo 'export PS1="[\u@\h \W]\$ "' >> /home/vscode/.bashrc
+RUN useradd -m -s /bin/bash vscode
+COPY files/.bashrc /home/vscode/.bashrc
+RUN chown vscode:vscode /home/vscode/.bashrc
 USER vscode
 
 # Set the working directory to the workspace folder within the vscode home directory
