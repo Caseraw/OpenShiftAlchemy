@@ -24,11 +24,14 @@ source "$SCRIPT_DIR/setup-openshift-console-config.sh"
 # Setup RHACM MultiCluster Observability
 source "$SCRIPT_DIR/setup-rhacm-observability-operator.sh"
 
-# Setup RHACM credentials for AWS clusters
-source "$SCRIPT_DIR/setup-rhacm-credentials-aws.sh"
+# Setup RHACM sample policies
+source "$SCRIPT_DIR/setup-rhacm-sample-policies.sh"
 
-# # Setup 3 AWS managed clusters with RHACM
+# Setup RHACM credentials for AWS clusters
+# source "$SCRIPT_DIR/setup-rhacm-credentials-aws.sh"
+
+# Setup 3 AWS managed clusters with RHACM
 # source "$SCRIPT_DIR/setup-rhacm-managed-cluster-aws.sh"
 
-# # Setup Rocket Chat application
-# source "$SCRIPT_DIR/setup-rhacm-application-rocket-chat.sh"
+# Setup Rocket Chat application
+source "$SCRIPT_DIR/setup-rhacm-application-rocket-chat.sh"

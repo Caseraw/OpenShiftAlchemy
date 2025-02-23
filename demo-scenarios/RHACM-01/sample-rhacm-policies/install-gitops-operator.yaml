@@ -1,0 +1,66 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-grc-gitops-operator
+  namespace: default
+  annotations:
+    policy.open-cluster-management.io/categories: ""
+    policy.open-cluster-management.io/standards: ""
+    policy.open-cluster-management.io/controls: ""
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-operator
+        spec:
+          remediationAction: enforce
+          severity: critical
+          complianceType: musthave
+          subscription:
+            name: openshift-gitops-operator
+            channel: latest
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace
+          upgradeApproval: Automatic
+          versions:
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: policy-grc-gitops-operator-placement
+  namespace: default
+spec:
+  tolerations:
+    - key: cluster.open-cluster-management.io/unreachable
+      operator: Exists
+    - key: cluster.open-cluster-management.io/unavailable
+      operator: Exists
+  clusterSets:
+    - default
+  predicates:
+    - requiredClusterSelector:
+        labelSelector:
+          matchExpressions:
+            - key: environment
+              operator: In
+              values:
+                - manual-dev
+                - staging
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-grc-gitops-operator-placement
+  namespace: default
+placementRef:
+  name: policy-grc-gitops-operator-placement
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: policy-grc-gitops-operator
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

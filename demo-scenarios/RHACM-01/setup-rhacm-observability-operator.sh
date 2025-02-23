@@ -44,7 +44,7 @@ stringData:
       endpoint: s3.amazonaws.com
       insecure: false
       access_key: $AWS_ACCESS_KEY_ID
-      secret_key: $AWS_DEFAULT_REGION
+      secret_key: $AWS_SECRET_ACCESS_KEY
 EOF
 
 # Cleanup: Remove the temporary directory

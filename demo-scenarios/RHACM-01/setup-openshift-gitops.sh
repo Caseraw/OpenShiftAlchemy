@@ -12,6 +12,8 @@ echo "Kustomize build and apply completed successfully."
 
 echo "OpenShift GitOps ArgoCD instance state"
 
+sleep 20
+
 oc -n openshift-gitops wait ArgoCD openshift-gitops --for=jsonpath='{.status.phase}'=Available --timeout=900s
 oc -n openshift-gitops wait ArgoCD openshift-gitops --for=jsonpath='{.status.applicationController}'=Running --timeout=900s
 oc -n openshift-gitops wait ArgoCD openshift-gitops --for=jsonpath='{.status.applicationSetController}'=Running --timeout=900s
