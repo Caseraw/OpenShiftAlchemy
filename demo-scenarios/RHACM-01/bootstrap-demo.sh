@@ -28,10 +28,16 @@ source "$SCRIPT_DIR/setup-rhacm-observability-operator.sh"
 source "$SCRIPT_DIR/setup-rhacm-sample-policies.sh"
 
 # Setup RHACM credentials for AWS clusters
-# source "$SCRIPT_DIR/setup-rhacm-credentials-aws.sh"
+source "$SCRIPT_DIR/setup-rhacm-credentials-aws.sh"
 
 # Setup 3 AWS managed clusters with RHACM
-# source "$SCRIPT_DIR/setup-rhacm-managed-cluster-aws.sh"
+source "$SCRIPT_DIR/setup-rhacm-managed-cluster-aws.sh"
 
-# Setup Rocket Chat application
+# Setup RHACM Rocket Chat application
+source "$SCRIPT_DIR/setup-rhacm-application-rocket-chat.sh"
+
+# Setup RHACM Application OpenShift Pipelines
+source "$SCRIPT_DIR/RHACM-application-openshift-pipelines"
+
+# Setup RHACM Application Color Game Challenge
 source "$SCRIPT_DIR/setup-rhacm-application-rocket-chat.sh"

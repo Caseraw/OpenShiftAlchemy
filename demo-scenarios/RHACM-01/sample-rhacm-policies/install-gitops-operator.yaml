@@ -48,8 +48,9 @@ spec:
             - key: environment
               operator: In
               values:
-                - manual-dev
+                - dev
                 - staging
+                - prod
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
