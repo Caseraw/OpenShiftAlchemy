@@ -3,6 +3,9 @@
 # Get the directory of the script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Bootstrap prerequisites
+source "$SCRIPT_DIR/bootstrap-prerequisite.sh"
+
 # Login on OpenShift RHACM cluster
 source "$SCRIPT_DIR/oc-cli-login.sh"
 
