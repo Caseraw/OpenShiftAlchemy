@@ -4,6 +4,10 @@
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 ASSETS_BYO="$PROJECT_DIR/assets-byo"
 
+# Load additional functions
+source "$PROJECT_DIR/automation/shell/lib/show_msg.sh"
+source "$PROJECT_DIR/automation/shell/lib/run_cmd.sh"
+
 # Load AWS credentials & base domain
 source "$PROJECT_DIR/assets-byo/aws-creds/aws-cli.env"
 source "$PROJECT_DIR/assets-byo/aws-creds/basedomain.env"
@@ -37,7 +41,7 @@ deploy_cluster() {
     local AWS_DEFAULT_REGION="${CLUSTER_REGION[$AWS_CLUSTER_NAME]}"
     local MANAGED_CLUSTER_LABELS="${CLUSTER_LABELS[$AWS_CLUSTER_NAME]}"
 
-    echo "🚀 Deploying cluster: $AWS_CLUSTER_NAME"
+    show_msg "show-date" "INFO" "🚀" "Deploying cluster" "$AWS_CLUSTER_NAME"
 
     INSTALL_CONFIG_YAML=$(cat <<EOF
 apiVersion: v1
@@ -221,13 +225,12 @@ spec:
   certPolicyController:
     enabled: true
 EOF
-
-    echo "✅ Cluster $AWS_CLUSTER_NAME deployed successfully!"
-    echo "--------------------------------------------"
+  
+    sleep 5
+    show_msg "show-date" "INFO" "✅" "Cluster $AWS_CLUSTER_NAME" "Deployed successfully!"
 }
 
 # 🚀 Deploy all clusters in the list
 for CLUSTER in "${CLUSTERS[@]}"; do
     deploy_cluster "$CLUSTER"
-    sleep 5
 done
