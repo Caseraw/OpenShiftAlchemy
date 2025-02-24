@@ -60,5 +60,5 @@ show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/setup-application-openshift-p
 source "$SCRIPT_DIR/setup-application-openshift-pipelines.sh"
 
 # Setup RHACM Application Color Game Challenge
-show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/setup-rhacm-application-rocket-chat.sh"
-source "$SCRIPT_DIR/setup-rhacm-application-rocket-chat.sh"
+show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/setup-application-color-game-challenge.sh"
+source "$SCRIPT_DIR/setup-application-color-game-challenge.sh"
