@@ -8,6 +8,10 @@ AWS_CREDS_DIR="$ASSETS_BYO/aws-creds"
 PULL_SECRET_DIR="$ASSETS_BYO/pull-secret"
 SSH_KEYS_DIR="$ASSETS_BYO/ssh-keys"
 
+# Load additional functions
+source "$PROJECT_DIR/automation/shell/lib/show_msg.sh"
+source "$PROJECT_DIR/automation/shell/lib/run_cmd.sh"
+
 # Define required files as arrays (scalable for future additions)
 AWS_CREDS_FILES=(
     "accesskeyid.env"
@@ -42,7 +46,7 @@ check_files() {
     if [[ ${#missing_files[@]} -eq 0 ]]; then
         return 0  # All files exist
     else
-        echo "❌ Missing files in $folder: ${missing_files[*]}"
+        show_msg "show-date" "CRITICAL" "❌" "Missing files in $folder" "${missing_files[*]}"
         return 1  # Some files are missing
     fi
 }
@@ -51,14 +55,14 @@ check_files() {
 prompt_and_run() {
     local folder=$1
     local setup_script=$2
-
-    echo -n "⚠️ Required files in '$folder' are missing. Do you want to create them now? (y/N): "
+ 
+    show_msg "show-date" "WARNING" "⚠️" "Required files in '$folder' are missing" "Do you want to create them now? (y/N): "
     read -r CONFIRM
     if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
-        echo "➡️ Running setup script: $setup_script"
+        show_msg "show-date" "INFO" "Running setup script" "$setup_script"
         bash "$folder/$setup_script"
     else
-        echo "❌ Cannot proceed without required files. Exiting."
+        show_msg "show-date" "CRITICAL" "❌" "Cannot proceed without required files" "Exiting"
         exit 1
     fi
 }
@@ -77,8 +81,9 @@ echo "🔄 Re-checking prerequisites..."
 if check_files "$AWS_CREDS_DIR" "${AWS_CREDS_FILES[@]}" && \
    check_files "$PULL_SECRET_DIR" "${PULL_SECRET_FILES[@]}" && \
    check_files "$SSH_KEYS_DIR" "${SSH_KEY_FILES[@]}"; then
-    echo "✅ All prerequisites met. Proceeding..."
+    echo " "
+    show_msg "show-date" "CRITICAL" "✅" "All prerequisites met" "Proceeding..."
 else
-    echo "❌ Some files are still missing. Exiting."
+    show_msg "show-date" "CRITICAL" "❌" "Some files are still missing" "Exiting"
     exit 1
 fi
