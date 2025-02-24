@@ -229,4 +229,5 @@ EOF
 # 🚀 Deploy all clusters in the list
 for CLUSTER in "${CLUSTERS[@]}"; do
     deploy_cluster "$CLUSTER"
+    sleep 5
 done

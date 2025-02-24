@@ -40,7 +40,7 @@ source "$SCRIPT_DIR/setup-rhacm-managed-cluster-aws.sh"
 source "$SCRIPT_DIR/setup-rhacm-application-rocket-chat.sh"
 
 # Setup RHACM Application OpenShift Pipelines
-source "$SCRIPT_DIR/RHACM-application-openshift-pipelines"
+source "$SCRIPT_DIR/setup-application-openshift-pipelines.sh"
 
 # Setup RHACM Application Color Game Challenge
 source "$SCRIPT_DIR/setup-rhacm-application-rocket-chat.sh"
