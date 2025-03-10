@@ -2,10 +2,13 @@
 
 # Get the directory of the script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIB_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 
 # Load additional functions
-source "$PROJECT_DIR/automation/shell/lib/show_msg.sh"
-source "$PROJECT_DIR/automation/shell/lib/run_cmd.sh"
+source "$LIB_DIR/automation/shell/lib/show_msg.sh"
+source "$LIB_DIR/automation/shell/lib/run_cmd.sh"
+
+echo $SCRIPT_DIR
 
 # Bootstrap prerequisites
 show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/bootstrap-prerequisite.sh"
