@@ -18,6 +18,7 @@ source "$SCRIPT_DIR/oc-cli-login.sh"
 
 # Setup custom prerequisites
 show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/setup-custom-prerequisite.sh"
+source "$SCRIPT_DIR/setup-custom-prerequisite.sh"
 
 # Setup OpenShift groups
 show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/setup-openshift-groups.sh"
