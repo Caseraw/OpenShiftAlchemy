@@ -91,6 +91,11 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     sudo ./aws/install && \
     rm -rf awscliv2.zip
 
+# Install roxctl from URL
+RUN curl -L -f -o roxctl "https://mirror.openshift.com/pub/rhacs/assets/4.6.3/bin/Linux/roxctl" && \
+    install -m 755 roxctl /usr/local/bin/roxctl && \
+    rm -rf awscliv2.zip
+
 # Create a non-root user to use the dev container
 RUN useradd -m -s /bin/bash vscode
 COPY files/.bashrc /home/vscode/.bashrc
