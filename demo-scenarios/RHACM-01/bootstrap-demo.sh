@@ -8,8 +8,6 @@ LIB_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../" && pwd)"
 source "$LIB_DIR/automation/shell/lib/show_msg.sh"
 source "$LIB_DIR/automation/shell/lib/run_cmd.sh"
 
-echo $SCRIPT_DIR
-
 # Bootstrap prerequisites
 show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/bootstrap-prerequisite.sh"
 source "$SCRIPT_DIR/bootstrap-prerequisite.sh"
@@ -17,6 +15,9 @@ source "$SCRIPT_DIR/bootstrap-prerequisite.sh"
 # Login on OpenShift RHACM cluster
 show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/oc-cli-login.sh"
 source "$SCRIPT_DIR/oc-cli-login.sh"
+
+# Setup custom prerequisites
+show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/setup-custom-prerequisite.sh"
 
 # Setup OpenShift groups
 show_msg "show-date" "INFO" "Running" "$SCRIPT_DIR/setup-openshift-groups.sh"
