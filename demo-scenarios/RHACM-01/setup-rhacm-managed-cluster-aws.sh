@@ -129,8 +129,8 @@ spec:
     sshPrivateKeySecretRef:
       name: $AWS_CLUSTER_NAME-ssh-private-key
     imageSetRef:
-      #quay.io/openshift-release-dev/ocp-release:4.17.17-multi
-      name: img4.17.17-multi-appsub
+      #quay.io/openshift-release-dev/ocp-release:4.17.21-multi
+      name: img4.17.21-multi-appsub
   pullSecretRef:
     name: $AWS_CLUSTER_NAME-pull-secret
 ---
